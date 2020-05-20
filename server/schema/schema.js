@@ -75,6 +75,15 @@ const UserType = new GraphQLObjectType({
 			resolve(parent, args) {
 				return _.filter(postsData, { userId: parent.id });
 			}
+		},
+
+		hobbies: {
+			type: new GraphQLList(HobbyType),
+			resolve(parent, args) {
+				return _.filter(hobbiesData, {
+					userId: parent.id
+				});
+			}
 		}
 	})
 });
@@ -141,6 +150,31 @@ const RootQuery = new GraphQLObjectType({
 	}
 });
 
+//Mutations
+const Mutation = new GraphQLObjectType({
+	name: 'Mutation',
+	fields: {
+		createUser: {
+			type: UserType,
+			args: {
+				name: { type: GraphQLString },
+				age: { type: GraphQLInt },
+				profession: { type: GraphQLString }
+			},
+
+			resolve(parent, args) {
+				let user = {
+					name: args.name,
+					age: args.age,
+					profession: args.profession
+				};
+				return user;
+			}
+		}
+	}
+});
+
 module.exports = new GraphQLSchema({
-	query: RootQuery
+	query: RootQuery,
+	mutation: Mutation
 });
