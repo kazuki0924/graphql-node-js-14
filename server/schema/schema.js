@@ -173,7 +173,34 @@ const Mutation = new GraphQLObjectType({
 		},
 		createPost: {
 			type: PostType,
-			args: {}
+			args: {
+				// id: {type: GraphQLID}
+				comment: { type: GraphQLString },
+				userId: { type: GraphQLID }
+			},
+			resolve(parent, args) {
+				let post = {
+					comment: args.comment,
+					userId: args.userId
+				};
+				return post;
+			}
+		},
+		createHobby: {
+			type: HobbyType,
+			args: {
+				// id: {type: GraphQLID}
+				title: { type: GraphQLString },
+				description: { type: GraphQLString },
+				userId: { type: GraphQLID }
+			},
+			resolve(parent, args) {
+				let hobby = {
+					title: args.description,
+					description: args.description,
+					userId: args.userId
+				};
+			}
 		}
 	}
 });
