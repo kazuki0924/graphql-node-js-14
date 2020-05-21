@@ -170,6 +170,10 @@ const Mutation = new GraphQLObjectType({
 				};
 				return user;
 			}
+		},
+		createPost: {
+			type: PostType,
+			args: {}
 		}
 	}
 });
